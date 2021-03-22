@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "142ec744-9543-4188-9d32-379704911cd0",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROJECT",
+			"item": [
+				{
+					"name": "Create New Task",
+					"item": [
+						{
+							"name": "Create New Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"const schema = {\r",
+											"  \"properties\": {\r",
+											"    \"alpha\": {\r",
+											"      \"type\": \"boolean\"\r",
+											"    }\r",
+											"  }\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"var id = pm.environment.get(\"projectId\");\r",
+											"\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"{{projectName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}tasks",
+									"host": [
+										"{{baseURL}}tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get active tasks",
+					"item": [
+						{
+							"name": "Get active tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.have.success;\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}tasks",
+									"host": [
+										"{{baseURL}}tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get an Active Task",
+					"item": [
+						{
+							"name": "Get an active task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}tasks",
+									"host": [
+										"{{baseURL}}tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"item": [
+						{
+							"name": "Update task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is  not 200\", () => {\r",
+											"  pm.response.to.not.have.status(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Update\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}tasks{{projectId}}",
+									"host": [
+										"{{baseURL}}tasks{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Task",
+					"item": [
+						{
+							"name": "Delete task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"pm.test(\"Status code is  not 200\", () => {\r",
+											"  pm.response.to.not.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}tasks{{projectId}}",
+									"host": [
+										"{{baseURL}}tasks{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reopen Task",
+					"item": [
+						{
+							"name": "Reopen task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is  not 200\", () => {\r",
+											"  pm.response.to.not.have.status(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Reopen\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}tasks{{projectId}}reopen",
+									"host": [
+										"{{baseURL}}tasks{{projectId}}reopen"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Change status to complete",
+					"item": [
+						{
+							"name": "Cahange status to complete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.environment.set(\"Satatus\", \"Complete\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/tasks",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "b63539ccd5cd7368cbe5e0d5d580eba032f2eb43",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"//Content ",
+					"",
+					"pm.test(\"Content-Type is not present\", function () {",
+					"    pm.response.to.not.have.header(\"Content\");",
+					"});",
+					"",
+					"//Json schema",
+					"",
+					"const schema1= {",
+					" \"items\": {",
+					" \"type\": \"false\"",
+					" }",
+					"};",
+					"const data1 = [false, false];",
+					"const data2 = [false, 123];",
+					"",
+					"pm.test('Schema is not valid', function() {",
+					"  pm.expect(tv4.validate(data1, schema1)).to.be.false;",
+					"  pm.expect(tv4.validate(data2, schema1)).to.be.false;",
+					"});",
+					"",
+					"//Response Time",
+					"",
+					"pm.test(\"Response time is more than 200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.not.eql(200);",
+					"});",
+					"",
+					"tests[\"Response time is acceptable\"] = _.inRange(responseTime, 100, 1001);",
+					""
+				]
+			}
+		}
+	]
+}
